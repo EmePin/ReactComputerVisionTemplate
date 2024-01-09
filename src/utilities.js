@@ -86,20 +86,20 @@ const clasesTraducidas = {
 export const drawRect = (detections, ctx) => {
   // Loop a través de cada predicción
   detections.forEach(prediction => {
-    // Extraer cajas y clases
     const [x, y, width, height] = prediction['bbox'];
     const claseEnIngles = prediction['class'];
     const claseEnEspanol = clasesTraducidas[claseEnIngles] || claseEnIngles;
 
-    // Establecer estilo
     const color = 'green';
     ctx.strokeStyle = color;
     ctx.font = '18px Arial';
 
-    // Dibujar rectángulos y texto
     ctx.beginPath();
     ctx.fillStyle = color;
-    ctx.fillText(claseEnEspanol, x, y - 5); // Mostrar el nombre de la clase en español
+
+    // Muestra ambas versiones
+    const textoAMostrar = `${claseEnIngles}/${claseEnEspanol}`;
+    ctx.fillText(textoAMostrar, x, y - 5);
     ctx.rect(x, y, width, height);
     ctx.stroke();
   });
